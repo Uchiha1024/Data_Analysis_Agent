@@ -10,3 +10,4 @@ wheels/
 .venv
 docker
 conf/app_config.yaml
+.cursor

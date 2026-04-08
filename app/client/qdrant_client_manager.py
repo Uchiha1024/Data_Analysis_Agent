@@ -29,6 +29,7 @@ class QdrantClientManager:
 qdrant_client_manager = QdrantClientManager(app_config.qdrant)
 
 if __name__ == '__main__':
+    # Initialize client before running the async test routine.
     qdrant_client_manager.init()
 
 
@@ -41,6 +42,7 @@ if __name__ == '__main__':
                 vectors_config=models.VectorParams(size=10, distance=models.Distance.COSINE),
             )
 
+        # Insert sample vectors for retrieval testing.
         await client.upsert(
             collection_name="my_collection",
             points=[
@@ -52,6 +54,7 @@ if __name__ == '__main__':
             ],
         )
 
+        # Run a similarity query and print top results.
         res = await client.query_points(
             collection_name="my_collection",
             query=[random.random() for _ in range(10)],  # type: ignore
