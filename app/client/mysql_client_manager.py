@@ -19,9 +19,11 @@ class MysqlClientManager:
 
     def init(self):
         # Initialize async engine and session factory.
-        self.engine = create_async_engine(url=self._get_url(),
-                                          pool_size=10,
-                                          pool_pre_ping=True)
+        self.engine = create_async_engine(url=self._get_url(),  # Async SQLAlchemy DSN for MySQL.
+                                          pool_size=10,  # Max pooled connections kept open.
+                                          pool_pre_ping=True)  # Verify connections before use to avoid stale sockets.
+        
+        
         self.session_factory = async_sessionmaker(self.engine,
                                                   autoflush=True,  # Flush pending changes before query when needed.
                                                   expire_on_commit=False,  # Keep object state available after commit.
