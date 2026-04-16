@@ -20,7 +20,8 @@ async def build(config_path: Path):
         ):
             meta_mysql_repository = MetaMySQLRepository(meta_session)
             dw_mysql_repository = DWMySQLRepository(dw_session)
-            meta_knowledge_service = MetaKnowledgeService(meta_session, dw_session)
+            meta_knowledge_service = MetaKnowledgeService(meta_mysql_repository=meta_mysql_repository,
+                                                      dw_mysql_repository=dw_mysql_repository,)
             await meta_knowledge_service.build(config_path)
     finally:
         await meta_mysql_client_manager.close()
