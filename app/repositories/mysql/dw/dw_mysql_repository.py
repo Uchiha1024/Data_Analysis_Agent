@@ -20,3 +20,8 @@ class DWMySQLRepository:
         result = await self.session.execute(text(sql))
         return [row[0] for row in result.fetchall()]
 
+
+    async def get_all_column_values(self, table_name, column_name):
+        sql = f"select distinct {column_name} from {table_name}"
+        result = await self.session.execute(text(sql))
+        return [row[0] for row in result.fetchall()]
