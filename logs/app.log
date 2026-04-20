@@ -2,3 +2,23 @@
 2026-04-08 11:18:22.471 | INFO     | request_id - request-2 | __main__:graph:46 - request-2
 2026-04-08 11:23:04.006 | INFO     | request_id - request-1 | __main__:graph:46 - request-1
 2026-04-08 11:23:04.007 | INFO     | request_id - request-2 | __main__:graph:46 - request-2
+2026-04-20 10:41:33.992 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:43 - Saved column infos to meta db
+2026-04-20 10:41:42.702 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:45 - Saved column infos to qdrant
+2026-04-20 10:42:40.457 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:43 - Saved column infos to meta db
+2026-04-20 10:42:49.291 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:45 - Saved column infos to qdrant
+2026-04-20 10:57:18.177 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:43 - Saved column infos to meta db
+2026-04-20 10:57:25.631 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:45 - Saved column infos to qdrant
+2026-04-20 10:59:36.695 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:43 - Saved column infos to meta db
+2026-04-20 10:59:44.157 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:45 - Saved column infos to qdrant
+2026-04-20 11:12:16.143 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:43 - Saved column infos to meta db
+2026-04-20 11:12:24.146 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:45 - Saved column infos to qdrant
+2026-04-20 11:12:24.314 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:48 - Saved values to es
+2026-04-20 17:25:23.799 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:222 - Saved column infos to meta db
+2026-04-20 17:25:32.036 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:224 - Saved column infos to qdrant
+2026-04-20 17:25:32.183 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:227 - Saved values to es
+2026-04-20 17:25:32.190 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:232 - Saved metrics to meta db
+2026-04-20 17:27:07.611 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:222 - Saved column infos to meta db
+2026-04-20 17:27:15.519 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:224 - Saved column infos to qdrant
+2026-04-20 17:27:15.653 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:227 - Saved values to es
+2026-04-20 17:27:15.660 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:232 - Saved metrics to meta db
+2026-04-20 17:27:16.578 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:235 - Saved metric infos to qdrant

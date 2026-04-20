@@ -1,6 +1,10 @@
 import argparse
 import asyncio
-from app.repositories.es import value_es_repository
+from app.repositories.es.value_es_repository import ValueESRepository
+from app.client.mysql_client_manager import (
+    dw_mysql_client_manager,
+    meta_mysql_client_manager,
+)
 from app.repositories.mysql.dw.dw_mysql_repository import DWMySQLRepository
 from app.repositories.mysql.meta.meta_mysql_repository import MetaMySQLRepository
 from app.client.qdrant_client_manager import qdrant_client_manager
@@ -8,14 +12,15 @@ from app.repositories.qdrant.column_qdrant_repository import ColumnQdrantReposit
 from app.client.embedding_client_manager import embedding_client_manager
 from app.client.es_client_manager import es_client_manager
 from app.repositories.es.value_es_repository import ValueESRepository
+from app.repositories.qdrant.metric_qdrant_repository import MetricQdrantRepository
 from app.services.meta_knowledge_service import MetaKnowledgeService
 from pathlib import Path
 
-from app.client.mysql_client_manager import (
-    dw_mysql_client_manager,
-    meta_mysql_client_manager,
-    qdrant_client_manager,
-)
+# from app.client.mysql_client_manager import (
+#     dw_mysql_client_manager,
+#     meta_mysql_client_manager,
+#     qdrant_client_manager,
+# )
 
 
 async def build(config_path: Path):
@@ -29,29 +34,36 @@ async def build(config_path: Path):
         async with (
             meta_mysql_client_manager.session_factory() as meta_session,
             dw_mysql_client_manager.session_factory() as dw_session,
-
-
         ):
             meta_mysql_repository = MetaMySQLRepository(meta_session)
             dw_mysql_repository = DWMySQLRepository(dw_session)
-            column_qdrant_repository = ColumnQdrantRepository(qdrant_client_manager.client)
+            column_qdrant_repository = ColumnQdrantRepository(
+                qdrant_client_manager.client
+            )
+            metric_qdrant_repository = MetricQdrantRepository(
+                qdrant_client_manager.client
+            )
             value_es_repository = ValueESRepository(es_client_manager.client)
-            meta_knowledge_service = MetaKnowledgeService(meta_mysql_repository=meta_mysql_repository,
-                                                      dw_mysql_repository=dw_mysql_repository,
-                                                      column_qdrant_repository=column_qdrant_repository,
-                                                      embedding_client = embedding_client_manager.client,
-                                                      value_es_repository=value_es_repository)
+            meta_knowledge_service = MetaKnowledgeService(
+                meta_mysql_repository=meta_mysql_repository,
+                dw_mysql_repository=dw_mysql_repository,
+                column_qdrant_repository=column_qdrant_repository,
+                metric_qdrant_repository=metric_qdrant_repository,
+                embedding_client=embedding_client_manager.client,
+                value_es_repository=value_es_repository,
+            )
             await meta_knowledge_service.build(config_path)
     finally:
         await meta_mysql_client_manager.close()
         await dw_mysql_client_manager.close()
+        await qdrant_client_manager.close()
+        await es_client_manager.close()
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-c', '--conf')  # 接受一个值的选项
+    parser.add_argument("-c", "--conf")  # 接受一个值的选项
 
     args = parser.parse_args()
     config_path = args.conf
