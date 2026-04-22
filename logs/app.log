@@ -22,3 +22,15 @@
 2026-04-20 17:27:15.653 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:227 - Saved values to es
 2026-04-20 17:27:15.660 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:232 - Saved metrics to meta db
 2026-04-20 17:27:16.578 | INFO     | request_id - 1 | app.services.meta_knowledge_service:build:235 - Saved metric infos to qdrant
+2026-04-21 11:08:33.182 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['统计华北地区的销售总额', '统计', '销售总额', '华北地区']
+2026-04-22 10:52:37.806 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['华北地区', '统计', '销售总额', '统计华北地区的销售总额']
+2026-04-22 10:56:03.033 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['华北地区', '销售总额', '统计华北地区的销售总额', '统计']
+2026-04-22 10:58:56.855 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['统计', '销售总额', '统计华北地区的销售总额', '华北地区']
+2026-04-22 10:59:53.873 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['华北地区', '销售总额', '统计华北地区的销售总额', '统计']
+2026-04-22 11:00:32.704 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['销售总额', '统计', '华北地区', '统计华北地区的销售总额']
+2026-04-22 11:00:35.577 | INFO     | request_id - 1 | app.agent.nodes.recall_column:recall_column:28 - column recall result: ['地区', '销售金额']
+2026-04-22 11:06:36.103 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['统计华北地区的销售总额', '统计', '销售总额', '华北地区']
+2026-04-22 11:06:39.663 | INFO     | request_id - 1 | app.agent.nodes.recall_column:recall_column:28 - column recall result: ['地区', '销售金额']
+2026-04-22 11:42:48.722 | INFO     | request_id - 1 | app.agent.nodes.extract_keywords:extract_keywords:32 - 提取关键词: ['统计华北地区的销售总额', '统计', '销售总额', '华北地区']
+2026-04-22 11:42:52.246 | INFO     | request_id - 1 | app.agent.nodes.recall_column:recall_column:28 - column recall result: ['地区', '销售金额']
+2026-04-22 11:42:52.958 | INFO     | request_id - 1 | app.agent.nodes.recall_column:recall_column:44 - column recall result: ['fact_order.order_amount', 'fact_order.order_quantity', 'dim_region.region_name', 'dim_region.province', 'dim_region.country', 'fact_order.region_id', 'dim_region.region_id', 'dim_date.year', 'dim_date.month', 'fact_order.date_id', 'dim_date.date_id']

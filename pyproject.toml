@@ -12,6 +12,7 @@ dependencies = [
     "jieba>=0.42.1",
     "langchain>=1.2.13",
     "langchain-huggingface>=1.2.1",
+    "langchain-openai>=1.1.16",
     "langgraph>=1.1.3",
     "loguru>=0.7.3",
     "omegaconf>=2.3.0",
@@ -19,3 +20,16 @@ dependencies = [
     "qdrant-client>=1.17.1",
     "sqlalchemy>=2.0.48",
 ]
+
+
+[tool.basedpyright]
+typeCheckingMode = "basic"
+
+reportMissingTypeStubs = "none"
+reportUnknownParameterType = "none"
+reportUnknownVariableType = "none"
+reportUnknownMemberType = "none"
+reportOptionalIterable = "none"
+reportCallIssue = "none"
+reportArgumentType = "none"
+reportAssignmentType = "none"
