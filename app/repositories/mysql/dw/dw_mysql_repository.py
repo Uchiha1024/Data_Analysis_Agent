@@ -25,3 +25,22 @@ class DWMySQLRepository:
         sql = f"select distinct {column_name} from {table_name}"
         result = await self.session.execute(text(sql))
         return [row[0] for row in result.fetchall()]
+
+    async def get_db_info(self):
+        sql = "select version()"
+        result = await self.session.execute(text(sql))
+        version = result.scalar()
+        dialect = self.session.bind.dialect.name
+        return {
+            "dialect": dialect,
+            "version": version
+        }
+
+    async def validate(self, sql):
+        sql = f"explain {sql}"
+        await self.session.execute(text(sql))
+
+    
+    async def run(self, sql):
+        result = await self.session.execute(text(sql))
+        return [dict(row) for row in result.mappings().fetchall()]

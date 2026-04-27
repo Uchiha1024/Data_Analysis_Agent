@@ -20,11 +20,12 @@ from app.agent.state import DataAgentState
 from app.client.embedding_client_manager import embedding_client_manager
 from app.client.qdrant_client_manager import qdrant_client_manager
 from app.client.es_client_manager import es_client_manager
+from app.repositories.mysql.dw.dw_mysql_repository import DWMySQLRepository
 from app.repositories.mysql.meta.meta_mysql_repository import MetaMySQLRepository
 from app.repositories.qdrant.column_qdrant_repository import ColumnQdrantRepository
 from app.repositories.qdrant.metric_qdrant_repository import MetricQdrantRepository
 from app.repositories.es.value_es_repository import ValueESRepository
-from app.client.mysql_client_manager import meta_mysql_client_manager
+from app.client.mysql_client_manager import dw_mysql_client_manager, meta_mysql_client_manager
 
 graph_builder = StateGraph(state_schema=DataAgentState, context_schema=DataAgentContext)
 graph_builder.add_node("extract_keywords", extract_keywords)
@@ -72,21 +73,23 @@ if __name__ == "__main__":
         embedding_client_manager.init()
         es_client_manager.init()
         meta_mysql_client_manager.init()
-
-        async with meta_mysql_client_manager.session_factory() as meta_session:
+        dw_mysql_client_manager.init()
+        async with meta_mysql_client_manager.session_factory() as meta_session, dw_mysql_client_manager.session_factory() as dw_session:
             meta_mysql_repository = MetaMySQLRepository(meta_session)
+            dw_mysql_repository = DWMySQLRepository(dw_session)
             column_qdrant_repository = ColumnQdrantRepository(qdrant_client_manager.client)
             metric_qdrant_repository = MetricQdrantRepository(qdrant_client_manager.client)
             value_es_repository = ValueESRepository(es_client_manager.client)
 
 
-            state = DataAgentState(error=None, query="统计华北地区的销售总额")
+            state = DataAgentState(error=None, query="统计各地区的销售总额")
             context = DataAgentContext(
                 column_qdrant_repository=column_qdrant_repository,
                 metric_qdrant_repository=metric_qdrant_repository,
                 embedding_client=embedding_client_manager.client,
                 value_es_repository=value_es_repository,
                 meta_mysql_repository=meta_mysql_repository,
+                dw_mysql_repository=dw_mysql_repository,
             )
             async for chunk in graph.astream(
                 input=state, context=context, stream_mode="custom"
