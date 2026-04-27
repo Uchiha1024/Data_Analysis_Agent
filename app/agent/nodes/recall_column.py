@@ -1,3 +1,6 @@
+from typing import Any
+
+
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import PromptTemplate
 from langgraph.runtime import Runtime
@@ -25,9 +28,9 @@ async def recall_column(state: DataAgentState, runtime: Runtime[DataAgentContext
     chain = prompt | llm | output_parser
 
     result = await chain.ainvoke({"query": query})
-    logger.info(f"column recall result: {result}")
+    # logger.info(f"column recall result: {result}")
     
-    keywords = set(keywords + result)
+    keywords = set[Any](keywords + result)
 
     # search column info from qdrant
     column_info_map : dict[str, ColumnInfo] = {}
@@ -40,6 +43,7 @@ async def recall_column(state: DataAgentState, runtime: Runtime[DataAgentContext
                 column_info_map[column_info.id] = column_info
 
     # convert column info map to list
-    retrieved_column_infos = list(column_info_map.values())
-    logger.info(f"column recall result: {list(column_info_map.keys())}")
+    retrieved_column_infos = list[ColumnInfo](column_info_map.values())
+    logger.info(f"column recall result: {retrieved_column_infos}")
+    # logger.info(f"column recall result: {list[str](column_info_map.keys())}")
     return {"retrieved_column_infos": retrieved_column_infos}
