@@ -7,27 +7,39 @@ from app.core.log import logger
 
 
 async def extract_keywords(state: DataAgentState, runtime: Runtime[DataAgentContext]):
+    step = "extract keywords"
     writer = runtime.stream_writer
-    writer("提取关键信息")
-    query = state["query"]
+    writer({"type": "progress", "step": step, "status": "running"})
 
-    allow_pos = (
-        "n",  # 名词: 数据、服务器、表格
-        "nr",  # 人名: 张三、李四
-        "ns",  # 地名: 北京、上海
-        "nt",  # 机构团体名: 政府、学校、某公司
-        "nz",  # 其他专有名词: Unicode、哈希算法、诺贝尔奖
-        "v",  # 动词: 运行、开发
-        "vn",  # 名动词: 工作、研究
-        "a",  # 形容词: 美丽、快速
-        "an",  # 名形词: 难度、合法性、复杂度
-        "eng",  # 英文
-        "i",  # 成语
-        "l",  # 常用固定短语
-    )
 
-    keywords = jieba.analyse.extract_tags(query, allowPOS=allow_pos)
+    try:
+        query = state["query"]
 
-    keywords = list(set(keywords + [query]))
-    logger.info(f"提取关键词: {keywords}")
-    return {"keywords": keywords}
+        allow_pos = (
+            "n",  # 名词: 数据、服务器、表格
+            "nr",  # 人名: 张三、李四
+            "ns",  # 地名: 北京、上海
+            "nt",  # 机构团体名: 政府、学校、某公司
+            "nz",  # 其他专有名词: Unicode、哈希算法、诺贝尔奖
+            "v",  # 动词: 运行、开发
+            "vn",  # 名动词: 工作、研究
+            "a",  # 形容词: 美丽、快速
+            "an",  # 名形词: 难度、合法性、复杂度
+            "eng",  # 英文
+            "i",  # 成语
+            "l",  # 常用固定短语
+        )
+
+        keywords = jieba.analyse.extract_tags(query, allowPOS=allow_pos)
+
+        keywords = list(set(keywords + [query]))
+        
+        writer({"type": "progress", "step": step, "status": "success"})
+        
+        logger.info(f"extract keywords: {keywords}")
+        return {"keywords": keywords}
+    except Exception as e:
+        logger.error(f"extract keywords failed: {e}")
+        writer({"type": "progress", "step": step, "status": "error"})
+        raise e
+
