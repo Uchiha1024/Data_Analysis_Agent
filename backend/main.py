@@ -1,6 +1,6 @@
 import uuid
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 
 from app.api.lifespan import lifespan
 from app.api.routers.query_router import query_router

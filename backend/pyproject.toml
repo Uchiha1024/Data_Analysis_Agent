@@ -24,6 +24,8 @@ dependencies = [
 
 [tool.basedpyright]
 typeCheckingMode = "basic"
+venvPath = "."
+venv = ".venv"
 
 reportMissingTypeStubs = "none"
 reportUnknownParameterType = "none"
