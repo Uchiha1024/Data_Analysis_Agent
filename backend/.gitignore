@@ -12,3 +12,4 @@ docker
 conf/app_config.yaml
 .cursor
 .vscode
+logs
